@@ -1,30 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>PantryPal</title>
-<link rel="stylesheet" href="./styles/styles.css">
+  <meta charset="UTF-8">
+  <title>PantryPal</title>
+
+  <link rel="stylesheet" href="./styles/styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
+
 <body>
+
+<header id="header">
+  <div class="hamburger" id="hamburger">☰</div>
+
+  <h1 class="nav-title">PantryPal</h1>
+
+  <div class="nav-links" id="navLinks">
+    <a href="#">Home</a>
+    <a href="#">Favorites</a>
+    <a href="#">Random</a>
+    <a href="#">This feature is not fully functional yet!</a>
+  </div>
+</header>
 
 <div class="container">
 
-<h1>PantryPal</h1>
+  <h3>Enter Ingredient:</h3>
+  <div class="input-section">
+    <input id="ingredientInput" placeholder="Add ingredient...">
+    <button id="addBtn">Add</button>
+  </div>
 
-<h3>Enter Ingredient:</h3>
-<div class="input-section">
-  <input id="ingredientInput" placeholder="Add ingredient...">
-  <button id="addBtn">Add</button>
-</div>
+  <h3>Your Ingredients:</h3>
+  <div id="ingredientList"></div>
 
-<h3>Your Ingredients:</h3>
-<div id="ingredientList"></div>
+  <button id="searchBtn">Find Recipes</button>
 
-<button id="searchBtn">Find Recipes</button>
-
-<!-- DEBUG OUTPUT -->
-<div id="debug"></div>
-
+  <div id="recipeResults"></div>
 </div>
 
 <script type="module" src="./js/main.mjs"></script>
