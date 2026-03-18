@@ -1,0 +1,56 @@
+body {
+  font-family: Arial, sans-serif;
+  background: #FFFFFF;
+  color: #333333;
+  padding: 40px;
+}
+
+.container {
+  max-width: 600px;
+  margin: auto;
+}
+
+h1 {
+  color: #4CAF50;
+}
+
+.input-section {
+  display: flex;
+  gap: 10px;
+}
+
+input {
+  flex: 1;
+  padding: 10px;
+}
+
+button {
+  padding: 10px;
+  background: #4CAF50;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+#ingredientList {
+  margin: 15px 0;
+}
+
+.tag {
+  display: inline-block;
+  background: #A5D6A7;
+  padding: 5px 10px;
+  margin: 5px;
+  border-radius: 20px;
+}
+
+
+#debug {
+  margin-top: 20px;
+  font-size: 12px;
+  background: #f5f5f5;
+  padding: 10px;
+  border-radius: 6px;
+  max-height: 200px;
+  overflow: auto;
+}
