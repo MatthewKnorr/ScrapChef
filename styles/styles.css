@@ -184,6 +184,12 @@
         font-size: 12px;
     }
 
+    #backBtn {
+        margin-bottom: 10px;
+        background: none;
+        color: var(--primary-green);
+        font-weight: 600;
+    }
 
 
 

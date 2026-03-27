@@ -2,25 +2,20 @@ export function renderRecipes(recipes) {
   const container = document.getElementById("recipeResults");
   container.innerHTML = "";
 
-  if (!recipes.length) {
-    container.innerHTML = "<p>No recipes found</p>";
-    return;
-  }
-
   recipes.slice(0, 9).forEach(recipe => {
     const card = document.createElement("div");
-    card.classList.add("recipe-card");
+    card.className = "recipe-card";
 
     const missing = recipe.missedIngredients
       .map(i => i.name)
       .join(", ");
 
     card.innerHTML = `
-      <img src="${recipe.image}" alt="${recipe.title}" />
+      <img src="${recipe.image}" />
       <h3>${recipe.title}</h3>
       <p>
-        ✅ ${recipe.usedIngredientCount} used<br>
-        ❌ Missing: ${missing || "None"}
+        ${recipe.usedIngredientCount} ingredient(s) used<br>
+        Missing: ${missing || "None"}
       </p>
     `;
 

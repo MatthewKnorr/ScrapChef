@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <title>PantryPal</title>
@@ -10,36 +11,51 @@
 
 <body>
 
-<header id="header">
-  <div class="hamburger" id="hamburger">☰</div>
+  <header id="header">
+    <div class="hamburger" id="hamburger">☰</div>
 
-  <h1 class="nav-title">PantryPal</h1>
+    <h1 class="nav-title">PantryPal</h1>
 
-  <div class="nav-links" id="navLinks">
-    <a href="#">Home</a>
-    <a href="#">Favorites</a>
-    <a href="#">Random</a>
-    <a href="#">This feature is not fully functional yet!</a>
+    <div class="nav-links" id="navLinks">
+      <a href="#">Home</a>
+      <a href="#">Favorites</a>
+      <a href="#">Random</a>
+    </div>
+  </header>
+
+  <div class="container">
+    <!-- HOME -->
+    <div id="homeView">
+      <h3>Enter Ingredient:</h3>
+
+      <div class="input-section">
+        <input id="ingredientInput" placeholder="Add ingredient...">
+        <button id="addBtn">Add</button>
+      </div>
+
+      <h3>Your Ingredients:</h3>
+      <div id="ingredientList"></div>
+
+      <button id="searchBtn">Find Recipes</button>
+    </div>
+
+    <!-- RESULTS -->
+    <!-- <div id="resultsView" style="display:none;">
+      <button id="backBtn">← Back</button>
+      <div id="recipeResults"></div>
+    </div> -->
+
+    <div id="resultsView" style="display:none;">
+      <h3 id="resultsTitle"></h3>
+      <button id="newSearchBtn">New Search</button>
+      <div id="recipeResults"></div>
+
+    </div>
+
   </div>
-</header>
 
-<div class="container">
-
-  <h3>Enter Ingredient:</h3>
-  <div class="input-section">
-    <input id="ingredientInput" placeholder="Add ingredient...">
-    <button id="addBtn">Add</button>
-  </div>
-
-  <h3>Your Ingredients:</h3>
-  <div id="ingredientList"></div>
-
-  <button id="searchBtn">Find Recipes</button>
-
-  <div id="recipeResults"></div>
-</div>
-
-<script type="module" src="./js/main.mjs"></script>
+  <script type="module" src="./js/main.mjs"></script>
 
 </body>
+
 </html>
