@@ -1,19 +1,40 @@
-const API_KEY = "263df75b323c4496a78c6ce5be673655";
+const API_KEY = "YOUR_API_KEY_HERE";
 
 export async function searchRecipes(ingredients) {
-  const url = `https://api.spoonacular.com/recipes/findByIngredients?ingredients=${ingredients.join(",")}&number=9&apiKey=${API_KEY}`;
+  try {
+    const url = `https://api.spoonacular.com/recipes/findByIngredients?ingredients=${ingredients.join(",")}&number=9&apiKey=${API_KEY}`;
 
-  const res = await fetch(url);
-  const data = await res.json();
+    const res = await fetch(url);
+    const data = await res.json();
 
-  return data;
+    if (!res.ok || !Array.isArray(data)) {
+      console.error("API FAILED:", data);
+      return [];
+    }
+
+    return data;
+  } catch (err) {
+    console.error("FETCH FAILED:", err);
+    return [];
+  }
 }
 
 export async function getRecipeDetails(id) {
-  const res = await fetch(
-    `https://api.spoonacular.com/recipes/${id}/information?apiKey=${API_KEY}`
-  );
+  try {
+    const res = await fetch(
+      `https://api.spoonacular.com/recipes/${id}/information?apiKey=${API_KEY}`
+    );
 
-  const data = await res.json();
-  return data;
+    const data = await res.json();
+
+    if (!res.ok) {
+      console.error("DETAIL ERROR:", data);
+      return null;
+    }
+
+    return data;
+  } catch (err) {
+    console.error("DETAIL FETCH FAILED:", err);
+    return null;
+  }
 }

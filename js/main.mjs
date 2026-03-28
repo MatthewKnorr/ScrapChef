@@ -75,11 +75,20 @@ resultsContainer.addEventListener("click", async (e) => {
 
   previousView = "results";
 
-  const recipe = await getRecipeDetails(id);
-  renderRecipeDetails(recipe);
-
   resultsView.style.display = "none";
   detailsView.style.display = "block";
+
+  const recipe = await getRecipeDetails(id);
+
+  if (!recipe) {
+    alert("Error loading recipe. Returning to results.");
+
+    detailsView.style.display = "none";
+    resultsView.style.display = "block";
+    return;
+  }
+
+  renderRecipeDetails(recipe);
 });
 
 /* BACK TO HOME */
@@ -174,11 +183,20 @@ function renderFavorites() {
 
       previousView = "favorites";
 
-      const recipeData = await getRecipeDetails(recipe.id);
-      renderRecipeDetails(recipeData);
-
       favoritesView.style.display = "none";
       detailsView.style.display = "block";
+
+      const recipeData = await getRecipeDetails(recipe.id);
+
+      if (!recipeData) {
+        alert("Error loading recipe. Returning to favorites.");
+
+        detailsView.style.display = "none";
+        favoritesView.style.display = "block";
+        return;
+      }
+
+      renderRecipeDetails(recipeData);
     });
 
     card.querySelector(".remove-btn").addEventListener("click", (e) => {
