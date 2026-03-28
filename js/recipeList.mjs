@@ -2,6 +2,21 @@ export function renderRecipes(recipes) {
   const container = document.getElementById("recipeResults");
   container.innerHTML = "";
 
+  if (!recipes) {
+    container.innerHTML = "<p>Something went wrong.</p>";
+    return;
+  }
+
+  if (recipes.error === "limit") {
+    container.innerHTML = "<p>Daily API limit reached. Try again later.</p>";
+    return;
+  }
+
+  if (recipes.error) {
+    container.innerHTML = "<p>Error loading recipes.</p>";
+    return;
+  }
+
   if (!Array.isArray(recipes) || recipes.length === 0) {
     container.innerHTML = "<p>No recipes found.</p>";
     return;
