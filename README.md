@@ -1,6 +1,6 @@
-# Pantry Pal
+# Scrap Chef
 
-Pantry Pal is a web application that helps users discover meals they can cook using ingredients they already have. Instead of wasting food or guessing what to make, users can enter ingredients and receive recipe suggestions.
+Scrap Chef is a web application that helps users discover meals they can cook using ingredients they already have. Instead of wasting food or guessing what to make, users can enter ingredients and receive recipe suggestions.
 
 ## Features
 
@@ -13,7 +13,7 @@ Pantry Pal is a web application that helps users discover meals they can cook us
 
 ## Purpose
 
-Many people struggle to decide what to cook or waste food due to unused ingredients. Pantry Pal helps turn available ingredients into real meal ideas.
+Many people struggle to decide what to cook or waste food due to unused ingredients. Scrap Chef helps turn available ingredients into real meal ideas.
 
 ## Audience
 
