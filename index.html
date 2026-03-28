@@ -24,32 +24,54 @@
   </header>
 
   <div class="container">
-    <!-- HOME -->
+    <!-- HOME VIEW-->
     <div id="homeView">
-      <h3>Enter Ingredient:</h3>
+      <div class="home-layout">
+        <div class="home-main">
+          <h3>Enter Ingredient:</h3>
+          <div class="input-section">
+            <input id="ingredientInput" placeholder="Add ingredient...">
+            <button id="addBtn">Add</button>
+          </div>
+          <div class="quick-add">
+            <div id="quickList"></div>
+          </div>
 
-      <div class="input-section">
-        <input id="ingredientInput" placeholder="Add ingredient...">
-        <button id="addBtn">Add</button>
+          <h3>Your Ingredients:</h3>
+          <div id="ingredientList"></div>
+
+          <button id="searchBtn">Find Recipes</button>
+        </div>
       </div>
-
-      <h3>Your Ingredients:</h3>
-      <div id="ingredientList"></div>
-
-      <button id="searchBtn">Find Recipes</button>
     </div>
 
-    <!-- RESULTS -->
-    <!-- <div id="resultsView" style="display:none;">
-      <button id="backBtn">← Back</button>
-      <div id="recipeResults"></div>
-    </div> -->
-
+    <!-- RESULTS VIEW-->
     <div id="resultsView" style="display:none;">
       <h3 id="resultsTitle"></h3>
       <button id="newSearchBtn">New Search</button>
       <div id="recipeResults"></div>
+    </div>
+    
+    <!-- DETAILS VIEW -->
+    <div id="detailsView" style="display:none;">
+      <button id="backToResultsBtn">← Back to Results</button>
 
+      <h2 id="detailTitle"></h2>
+      <img id="detailImage" />
+
+      <h3>Ingredients</h3>
+      <ul id="detailIngredients"></ul>
+
+      <h3>Instructions</h3>
+      <div id="detailInstructions"></div>
+
+      <button id="saveBtn">Save to Favorites</button>
+    </div>
+    
+     <!-- Favorites VIEW -->
+    <div id="favoritesView" style="display:none;">
+      <h3>Favorites</h3>
+      <div id="favoritesList"></div>
     </div>
 
   </div>

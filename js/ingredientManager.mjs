@@ -2,7 +2,12 @@ let ingredients = [];
 
 export function addIngredient(item) {
   if (!item) return;
-  ingredients.push(item.toLowerCase());
+
+  const formatted = item.toLowerCase();
+
+  if (ingredients.includes(formatted)) return;
+
+  ingredients.push(formatted);
 }
 
 export function getIngredients() {
@@ -21,11 +26,12 @@ export function renderIngredients(container) {
     tag.className = "tag";
 
     tag.innerHTML = `
-      ${ingredient}
+      <span class="text">${ingredient.charAt(0).toUpperCase() + ingredient.slice(1)}</span>
       <span class="remove">×</span>
     `;
 
-    tag.addEventListener("click", () => {
+    tag.querySelector(".remove").addEventListener("click", (e) => {
+      e.stopPropagation();
       removeIngredient(index);
       renderIngredients(container);
     });
