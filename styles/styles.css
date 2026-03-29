@@ -293,6 +293,121 @@ button:disabled {
     margin-bottom: 20px;
 }
 
+/* Filter's Control Panel */
+
+.filter-panel {
+    background: white;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+    border-radius: 14px;
+    padding: 18px;
+    max-width: 480px;
+    margin: 15px auto;
+    text-align: left;
+}
+
+.filter-panel h3 {
+    margin-bottom: 12px;
+    font-size: 18px;
+}
+
+.filter-group {
+    margin-bottom: 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.filter-group label {
+    font-size: 13px;
+    color: #666;
+}
+
+/* DROPDOWNS */
+.filter-group select {
+    appearance: none;
+    padding: 10px 12px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    background: #f9f9f9;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+/* SLIDER */
+.filter-group input[type="range"] {
+    appearance: none;
+    height: 6px;
+    border-radius: 999px;
+    background: #ddd;
+    outline: none;
+}
+
+/* slider track fill effect */
+.filter-group input[type="range"]::-webkit-slider-thumb {
+    appearance: none;
+    width: 18px;
+    height: 18px;
+    background: var(--primary-green);
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+}
+
+.filter-group input[type="range"]::-moz-range-thumb {
+    width: 18px;
+    height: 18px;
+    background: var(--primary-green);
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+/* Returned Filter's */
+#activeFilters {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 8px;
+    margin-bottom: 10px;
+}
+
+.filter-tag {
+    position: relative;
+    background: #e8f5e9;
+    color: #2e7d32;
+    padding: 6px 14px;
+    padding-right: 22px;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    overflow: hidden;
+}
+
+.filter-tag:hover {
+    background: #e53935;
+    color: #fff;
+    transform: translateY(-1px);
+}
+
+/* hidden X */
+.filter-tag::after {
+    content: "×";
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%) scale(0);
+    opacity: 0;
+    font-size: 14px;
+    font-weight: bold;
+    transition: all 0.2s ease;
+}
+
+.filter-tag:hover::after {
+    transform: translateY(-50%) scale(1);
+    opacity: 1;
+}
+
 /* RECIPE GRID */
 #recipeResults {
     margin-top: 30px;

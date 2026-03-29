@@ -13,6 +13,13 @@ const ingredientList = document.getElementById("ingredientList");
 const searchBtn = document.getElementById("searchBtn");
 const clearBtn = document.getElementById("clearBtn");
 
+const cuisineFilter = document.getElementById("cuisineFilter");
+const dietFilter = document.getElementById("dietFilter");
+const timeFilter = document.getElementById("timeFilter");
+const timeValue = document.getElementById("timeValue");
+
+const activeFilters = document.getElementById("activeFilters");
+
 const homeView = document.getElementById("homeView");
 const resultsView = document.getElementById("resultsView");
 const detailsView = document.getElementById("detailsView");
@@ -32,7 +39,12 @@ const quickList = document.getElementById("quickList");
 
 renderIngredients(ingredientList);
 
-// ADD
+// slider display
+timeFilter.addEventListener("input", () => {
+  timeValue.textContent = timeFilter.value;
+});
+
+// ADD INGREDIENT
 addBtn.addEventListener("click", () => {
   const value = input.value.trim();
   if (!value) return;
@@ -60,9 +72,29 @@ searchBtn.addEventListener("click", async () => {
     "Results for: " +
     ingredients.map(i => i.charAt(0).toUpperCase() + i.slice(1)).join(", ");
 
+  activeFilters.innerHTML = "";
+
+  if (cuisineFilter.value) {
+    addFilterTag(cuisineFilter.value, "cuisine");
+  }
+
+  if (dietFilter.value) {
+    addFilterTag(dietFilter.value, "diet");
+  }
+
+  if (timeFilter.value && timeFilter.value !== "60") {
+    addFilterTag(`Under ${timeFilter.value} min`, "time");
+  }
+
   resultsContainer.innerHTML = "<p>Loading...</p>";
 
-  const recipes = await searchRecipes(ingredients);
+  const recipes = await searchRecipes(
+    ingredients,
+    cuisineFilter.value,
+    dietFilter.value,
+    timeFilter.value
+  );
+
   renderRecipes(recipes);
 });
 
@@ -75,6 +107,7 @@ resultsContainer.addEventListener("click", async (e) => {
   const id = card.dataset.id;
 
   previousView = "results";
+  document.getElementById("backToResultsBtn").textContent = "Return to Results";
 
   resultsView.style.display = "none";
   detailsView.style.display = "block";
@@ -100,22 +133,26 @@ newSearchBtn.addEventListener("click", () => {
   homeView.style.display = "block";
 });
 
-// BACK BUTTON 
+// BACK BUTTON
 document.addEventListener("click", (e) => {
   if (e.target.id === "backToResultsBtn") {
     detailsView.style.display = "none";
 
+    const btn = document.getElementById("backToResultsBtn");
+
     if (previousView === "favorites") {
       favoritesView.style.display = "block";
       resultsView.style.display = "none";
+      btn.textContent = "Return to Favorites";
     } else {
       resultsView.style.display = "block";
       favoritesView.style.display = "none";
+      btn.textContent = "Return to Results";
     }
   }
 });
 
-// NAV 
+// NAV
 hamburger.addEventListener("click", () => {
   hamburger.classList.toggle("active");
   navLinks.classList.toggle("open");
@@ -163,7 +200,7 @@ clearBtn.addEventListener("click", () => {
   renderIngredients(ingredientList);
 });
 
-// FAVORITES 
+// FAVORITES
 function renderFavorites() {
   const favorites = getFavorites();
   favoritesList.innerHTML = "";
@@ -189,6 +226,7 @@ function renderFavorites() {
       e.stopPropagation();
 
       previousView = "favorites";
+      document.getElementById("backToResultsBtn").textContent = "Return to Favorites";
 
       favoritesView.style.display = "none";
       detailsView.style.display = "block";
@@ -217,4 +255,24 @@ function renderFavorites() {
 
     favoritesList.appendChild(card);
   });
+}
+
+// FILTER TAGS
+function addFilterTag(text, type) {
+  const tag = document.createElement("span");
+  tag.className = "filter-tag";
+  tag.textContent = text.charAt(0).toUpperCase() + text.slice(1);
+
+  tag.addEventListener("click", () => {
+    if (type === "cuisine") cuisineFilter.value = "";
+    if (type === "diet") dietFilter.value = "";
+    if (type === "time") {
+      timeFilter.value = "60";
+      timeValue.textContent = "60";
+    }
+
+    searchBtn.click();
+  });
+
+  activeFilters.appendChild(tag);
 }
