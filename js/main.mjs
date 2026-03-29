@@ -1,4 +1,4 @@
-import { addIngredient, getIngredients, renderIngredients } from "./ingredientManager.mjs";
+import { addIngredient, getIngredients, renderIngredients, clearIngredients } from "./ingredientManager.mjs";
 import { searchRecipes, getRecipeDetails } from "./apiService.mjs";
 import { renderRecipes } from "./recipeList.mjs";
 import { renderRecipeDetails } from "./recipeDetails.mjs";
@@ -11,6 +11,7 @@ const addBtn = document.getElementById("addBtn");
 const ingredientList = document.getElementById("ingredientList");
 
 const searchBtn = document.getElementById("searchBtn");
+const clearBtn = document.getElementById("clearBtn");
 
 const homeView = document.getElementById("homeView");
 const resultsView = document.getElementById("resultsView");
@@ -31,7 +32,7 @@ const quickList = document.getElementById("quickList");
 
 renderIngredients(ingredientList);
 
-/* ADD */
+// ADD
 addBtn.addEventListener("click", () => {
   const value = input.value.trim();
   if (!value) return;
@@ -45,7 +46,7 @@ input.addEventListener("keydown", (e) => {
   if (e.key === "Enter") addBtn.click();
 });
 
-/* SEARCH */
+// SEARCH
 searchBtn.addEventListener("click", async () => {
   const ingredients = getIngredients();
   if (ingredients.length === 0) return;
@@ -65,7 +66,7 @@ searchBtn.addEventListener("click", async () => {
   renderRecipes(recipes);
 });
 
-/* VIEW DETAILS FROM RESULTS */
+// VIEW DETAILS FROM RESULTS
 resultsContainer.addEventListener("click", async (e) => {
   const button = e.target.closest(".view-btn");
   if (!button) return;
@@ -91,7 +92,7 @@ resultsContainer.addEventListener("click", async (e) => {
   renderRecipeDetails(recipe);
 });
 
-/* BACK TO HOME */
+// BACK TO HOME
 newSearchBtn.addEventListener("click", () => {
   resultsView.style.display = "none";
   detailsView.style.display = "none";
@@ -99,7 +100,7 @@ newSearchBtn.addEventListener("click", () => {
   homeView.style.display = "block";
 });
 
-/* BACK BUTTON */
+// BACK BUTTON 
 document.addEventListener("click", (e) => {
   if (e.target.id === "backToResultsBtn") {
     detailsView.style.display = "none";
@@ -114,7 +115,7 @@ document.addEventListener("click", (e) => {
   }
 });
 
-/* NAV */
+// NAV 
 hamburger.addEventListener("click", () => {
   hamburger.classList.toggle("active");
   navLinks.classList.toggle("open");
@@ -136,7 +137,7 @@ navLinksList[1].addEventListener("click", () => {
   renderFavorites();
 });
 
-/* QUICK ADD */
+// QUICK ADD
 const commonIngredients = [
   "Eggs","Chicken","Rice","Garlic","Onion","Milk","Cheese","Butter","Tomato","Potato"
 ];
@@ -156,7 +157,13 @@ if (quickList) {
   });
 }
 
-/* FAVORITES */
+// CLEAR ALL
+clearBtn.addEventListener("click", () => {
+  clearIngredients();
+  renderIngredients(ingredientList);
+});
+
+// FAVORITES 
 function renderFavorites() {
   const favorites = getFavorites();
   favoritesList.innerHTML = "";
