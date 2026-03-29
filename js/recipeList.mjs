@@ -1,45 +1,47 @@
+const PLACEHOLDER = "https://placehold.co/300x200/A5D6A7/333333?text=No+Image+Available";
+
 export function renderRecipes(recipes) {
-  const container = document.getElementById("recipeResults");
-  container.innerHTML = "";
+    const container = document.getElementById("recipeResults");
+    container.innerHTML = "";
 
-  if (!recipes) {
-    container.innerHTML = "<p>Something went wrong.</p>";
-    return;
-  }
+    if (!recipes || recipes.length === 0) {
+        container.innerHTML = "<p>No recipes found.</p>";
+        return;
+    }
 
-  if (recipes.error === "limit") {
-    container.innerHTML = "<p>Daily API limit reached. Try again later.</p>";
-    return;
-  }
+    recipes.forEach(recipe => {
+        const card = document.createElement("div");
+        card.className = "recipe-card";
 
-  if (recipes.error) {
-    container.innerHTML = "<p>Error loading recipes.</p>";
-    return;
-  }
+        // IMAGE
+        const img = document.createElement("img");
 
-  if (!Array.isArray(recipes) || recipes.length === 0) {
-    container.innerHTML = "<p>No recipes found.</p>";
-    return;
-  }
+        img.src = recipe.image || PLACEHOLDER;
 
-  recipes.slice(0, 9).forEach(recipe => {
-    const card = document.createElement("div");
-    card.className = "recipe-card";
-    card.dataset.id = recipe.id;
+        img.onerror = () => {
+            img.src = PLACEHOLDER;
+        };
 
-    const missing = recipe.missedIngredients?.map(i => i.name).join(", ") || "None";
-    const total = (recipe.usedIngredientCount || 0) + (recipe.missedIngredientCount || 0);
+        // TITLE
+        const title = document.createElement("h3");
+        title.textContent = recipe.title || "Untitled Recipe";
 
-    card.innerHTML = `
-      <img src="${recipe.image}" onerror="this.src='https://via.placeholder.com/300x200'" />
-      <h3>${recipe.title}</h3>
-      <p>
-        Match: ${recipe.usedIngredientCount || 0}/${total}<br>
-        Missing: ${missing}
-      </p>
-      <button class="view-btn">View Recipe</button>
-    `;
+        // VIEW BUTTON
+        const btn = document.createElement("button");
+        btn.textContent = "View Recipe";
+        btn.className = "view-btn";
 
-    container.appendChild(card);
-  });
+        btn.addEventListener("click", () => {
+            document.dispatchEvent(
+                new CustomEvent("viewRecipe", { detail: recipe.id })
+            );
+        });
+
+        // BUILD CARD
+        card.appendChild(img);
+        card.appendChild(title);
+        card.appendChild(btn);
+
+        container.appendChild(card);
+    });
 }
