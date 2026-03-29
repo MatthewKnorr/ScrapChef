@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <title>ScrapChef</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
+
   <link rel="stylesheet" href="./styles/styles.css">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
@@ -18,9 +18,9 @@
     <h1 class="nav-title">ScrapChef</h1>
 
     <div class="nav-links" id="navLinks">
-      <a href="#">Home</a>
-      <a href="#">Favorites</a>
-      <a href="#">Random</a>
+      <a href="#" data-replace="Home"><span>Home</span></a>
+      <a href="#" data-replace="Favorites"><span>Favorites</span></a>
+      <a href="#" data-replace="Random"><span>Random</span></a>
     </div>
   </header>
 
@@ -52,7 +52,7 @@
       <button id="newSearchBtn">New Search</button>
       <div id="recipeResults"></div>
     </div>
-    
+
     <!-- DETAILS VIEW -->
     <div id="detailsView" style="display:none;">
       <button id="backToResultsBtn">← Back to Results</button>
@@ -68,8 +68,8 @@
 
       <button id="saveBtn">Save to Favorites</button>
     </div>
-    
-     <!-- Favorites VIEW -->
+
+    <!-- Favorites VIEW -->
     <div id="favoritesView" style="display:none;">
       <h3>Favorites</h3>
       <div id="favoritesList"></div>
