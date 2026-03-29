@@ -34,6 +34,8 @@ export function clearIngredients() {
 export function renderIngredients(container) {
   container.innerHTML = "";
 
+  const isMobile = window.matchMedia("(max-width: 767px)").matches;
+
   ingredients.forEach((ingredient, index) => {
     const tag = document.createElement("span");
     tag.className = "tag";
@@ -43,11 +45,18 @@ export function renderIngredients(container) {
       <span class="remove">×</span>
     `;
 
-    tag.querySelector(".remove").addEventListener("click", (e) => {
-      e.stopPropagation();
-      removeIngredient(index);
-      renderIngredients(container);
-    });
+    if (isMobile) {
+      tag.addEventListener("click", () => {
+        removeIngredient(index);
+        renderIngredients(container);
+      });
+    } else {
+      tag.querySelector(".remove").addEventListener("click", (e) => {
+        e.stopPropagation();
+        removeIngredient(index);
+        renderIngredients(container);
+      });
+    }
 
     container.appendChild(tag);
   });

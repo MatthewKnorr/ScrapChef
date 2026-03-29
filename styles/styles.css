@@ -57,10 +57,19 @@ h3 {
 .hamburger {
     font-size: 22px;
     cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.hamburger:hover {
+    transform: rotate(15deg);
 }
 
 .hamburger.active {
     transform: rotate(90deg);
+}
+
+.hamburger.active:hover {
+    transform: rotate(75deg);
 }
 
 .nav-title {
@@ -449,7 +458,6 @@ button:disabled {
         0 8px 16px rgba(0, 0, 0, 0.18),
         0 12px 24px rgba(76, 175, 80, 0.25);
 }
-
 
 /* BUTTONS */
 .view-btn,
