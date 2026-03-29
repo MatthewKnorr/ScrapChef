@@ -43,31 +43,33 @@
           <div class="filter-panel">
             <h3>Refine Results</h3>
 
-            <div class="filter-group">
-              <label>Cuisine</label>
-              <select id="cuisineFilter">
-                <option value="">All</option>
-                <option value="italian">Italian</option>
-                <option value="mexican">Mexican</option>
-                <option value="american">American</option>
-                <option value="asian">Asian</option>
-              </select>
-            </div>
+            <div class="filter-row">
+              <div class="filter-group">
+                <label>Cuisine</label>
+                <select id="cuisineFilter">
+                  <option value="">All</option>
+                  <option value="italian">Italian</option>
+                  <option value="mexican">Mexican</option>
+                  <option value="american">American</option>
+                  <option value="asian">Asian</option>
+                </select>
+              </div>
 
-            <div class="filter-group">
-              <label>Diet</label>
-              <select id="dietFilter">
-                <option value="">All</option>
-                <option value="vegetarian">Vegetarian</option>
-                <option value="vegan">Vegan</option>
-                <option value="gluten free">Gluten Free</option>
-                <option value="ketogenic">Keto</option>
-              </select>
-            </div>
+              <div class="filter-group">
+                <label>Diet</label>
+                <select id="dietFilter">
+                  <option value="">All</option>
+                  <option value="vegetarian">Vegetarian</option>
+                  <option value="vegan">Vegan</option>
+                  <option value="gluten free">Gluten Free</option>
+                  <option value="ketogenic">Keto</option>
+                </select>
+              </div>
 
-            <div class="filter-group">
-              <label>Max Time: <span id="timeValue">60</span> min</label>
-              <input type="range" id="timeFilter" min="10" max="120" step="5" value="60">
+              <div class="filter-group full">
+                <label>Max Time: <span id="timeValue">60</span> min</label>
+                <input type="range" id="timeFilter" min="10" max="120" step="5" value="60">
+              </div>
             </div>
           </div>
 
