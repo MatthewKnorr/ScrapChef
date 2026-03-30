@@ -459,6 +459,17 @@ button:disabled {
         0 12px 24px rgba(76, 175, 80, 0.25);
 }
 
+.recipe-meta {
+    font-size: 12px;
+    color: #666;
+    margin-bottom: 6px;
+}
+
+.recipe-meta .missing {
+    font-size: 11px;
+    color: #999;
+}
+
 /* BUTTONS */
 .view-btn,
 .remove-btn {
