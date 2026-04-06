@@ -175,18 +175,27 @@ navLinksList[1].addEventListener("click", () => {
 });
 
 // QUICK ADD
-const commonIngredients = [
-  "Eggs","Chicken","Rice","Garlic","Onion","Milk","Cheese","Butter","Tomato","Potato"
+export const commonIngredients = [
+  { name: "Eggs", emoji: "🥚" },
+  { name: "Chicken", emoji: "🍗" },
+  { name: "Rice", emoji: "🍚" },
+  { name: "Garlic", emoji: "🧄" },
+  { name: "Onion", emoji: "🧅" },
+  { name: "Milk", emoji: "🥛" },
+  { name: "Cheese", emoji: "🧀" },
+  { name: "Butter", emoji: "🧈" },
+  { name: "Tomato", emoji: "🍅" },
+  { name: "Potato", emoji: "🥔" }
 ];
 
 if (quickList) {
   commonIngredients.forEach(item => {
     const btn = document.createElement("div");
     btn.className = "quick-item";
-    btn.textContent = item;
+    btn.textContent = `${item.emoji} ${item.name}`;
 
     btn.addEventListener("click", () => {
-      addIngredient(item);
+      addIngredient(item.name);
       renderIngredients(ingredientList);
     });
 
