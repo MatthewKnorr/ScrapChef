@@ -12,6 +12,7 @@ const ingredientList = document.getElementById("ingredientList");
 
 const searchBtn = document.getElementById("searchBtn");
 const clearBtn = document.getElementById("clearBtn");
+const navSearch = document.getElementById("navSearch");
 
 const cuisineFilter = document.getElementById("cuisineFilter");
 const dietFilter = document.getElementById("dietFilter");
@@ -27,7 +28,7 @@ const favoritesView = document.getElementById("favoritesView");
 
 const resultsContainer = document.getElementById("recipeResults");
 const resultsTitle = document.getElementById("resultsTitle");
-const newSearchBtn = document.getElementById("newSearchBtn");
+const returnHomeBtns = document.querySelectorAll(".returnHomeBtn");
 
 const favoritesList = document.getElementById("favoritesList");
 
@@ -98,6 +99,14 @@ searchBtn.addEventListener("click", async () => {
   renderRecipes(recipes);
 });
 
+
+navSearch.addEventListener("click", () => {
+  homeView.style.display = "block";
+  resultsView.style.display = "none";
+  detailsView.style.display = "none";
+  favoritesView.style.display = "none";
+});
+
 // VIEW DETAILS FROM RESULTS
 resultsContainer.addEventListener("click", async (e) => {
   const button = e.target.closest(".view-btn");
@@ -126,11 +135,13 @@ resultsContainer.addEventListener("click", async (e) => {
 });
 
 // BACK TO HOME
-newSearchBtn.addEventListener("click", () => {
-  resultsView.style.display = "none";
-  detailsView.style.display = "none";
-  favoritesView.style.display = "none";
-  homeView.style.display = "block";
+returnHomeBtns.forEach(btn => {
+  btn.addEventListener("click", () => {
+    resultsView.style.display = "none";
+    detailsView.style.display = "none";
+    favoritesView.style.display = "none";
+    homeView.style.display = "block";
+  });
 });
 
 // BACK BUTTON

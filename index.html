@@ -11,18 +11,23 @@
 </head>
 
 <body>
-
-  <header id="header">
-    <div class="hamburger" id="hamburger">☰</div>
-
-    <h1 class="nav-title">ScrapChef</h1>
-
-    <div class="nav-links" id="navLinks">
-      <a href="#" data-replace="Home"><span>Home</span></a>
-      <a href="#" data-replace="Favorites"><span>Favorites</span></a>
-      <a href="#" data-replace="Random"><span>Random</span></a>
+  <div class="header">
+    <div class="logo-main">
+      <img src="./logo.png" alt="">
     </div>
-  </header>
+
+    <header id="header">
+      <div class="hamburger" id="hamburger">☰</div>
+      <h1 class="nav-title">ScrapChef</h1>
+
+      <div class="nav-links" id="navLinks">
+        <a href="#" data-replace="Home"><span>Home</span></a>
+        <a href="#" data-replace="Favorites"><span>Favorites</span></a>
+        <a href="#" data-replace="Random"><span>Random</span></a>
+        <a href="#" id="navSearch" class="nav-icon"><span>🔍</span></a>
+      </div>
+    </header>
+  </div>
 
   <div class="container">
     <!-- HOME VIEW-->
@@ -37,7 +42,9 @@
           <div class="quick-add">
             <div id="quickList"></div>
           </div>
-
+          <div class="logo-large">
+            <img src="./logo.png" alt="">
+          </div>
           <h3>Your Ingredients:</h3>
           <div id="ingredientList"></div>
           <div class="filter-panel">
@@ -82,7 +89,7 @@
     <div id="resultsView" style="display:none;">
       <h3 id="resultsTitle"></h3>
       <div id="activeFilters"></div>
-      <button id="newSearchBtn">New Search</button>
+      <button class="returnHomeBtn">Return Home</button>
       <div id="recipeResults"></div>
     </div>
 
@@ -105,6 +112,7 @@
     <!-- Favorites VIEW -->
     <div id="favoritesView" style="display:none;">
       <h3>Favorites</h3>
+      <button class="returnHomeBtn">Return Home</button>
       <div id="favoritesList"></div>
     </div>
 
