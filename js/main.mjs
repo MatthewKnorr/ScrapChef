@@ -52,6 +52,7 @@ addBtn.addEventListener("click", () => {
 
   addIngredient(value);
   renderIngredients(ingredientList);
+  renderQuickList();
   input.value = "";
 });
 
@@ -100,12 +101,12 @@ searchBtn.addEventListener("click", async () => {
 });
 
 
-navSearch.addEventListener("click", () => {
-  homeView.style.display = "block";
-  resultsView.style.display = "none";
-  detailsView.style.display = "none";
-  favoritesView.style.display = "none";
-});
+// navSearch.addEventListener("click", () => {
+//   homeView.style.display = "block";
+//   resultsView.style.display = "none";
+//   detailsView.style.display = "none";
+//   favoritesView.style.display = "none";
+// });
 
 // VIEW DETAILS FROM RESULTS
 resultsContainer.addEventListener("click", async (e) => {
@@ -200,24 +201,51 @@ export const commonIngredients = [
 ];
 
 if (quickList) {
+  function renderQuickList() {
+  quickList.innerHTML = "";
+
+  const currentIngredients = getIngredients(); // already normalized
+
   commonIngredients.forEach(item => {
     const btn = document.createElement("div");
     btn.className = "quick-item";
+
+    // display (emoji + name)
     btn.textContent = `${item.emoji} ${item.name}`;
 
+    // real data (NO emoji)
+    btn.dataset.value = item.name.toLowerCase();
+
+    // active state check (clean + reliable)
+    const isActive = currentIngredients.includes(btn.dataset.value);
+
+    if (isActive) {
+      btn.classList.add("active");
+    }
+
     btn.addEventListener("click", () => {
-      addIngredient(item.name);
+      // re-check live state (prevents stale closure bug)
+      const updatedIngredients = getIngredients();
+
+      if (updatedIngredients.includes(btn.dataset.value)) return;
+
+      addIngredient(btn.dataset.value); // already lowercase
       renderIngredients(ingredientList);
+      renderQuickList(); // resync UI
     });
 
     quickList.appendChild(btn);
   });
 }
 
+  renderQuickList();
+}
+
 // CLEAR ALL
 clearBtn.addEventListener("click", () => {
   clearIngredients();
   renderIngredients(ingredientList);
+  renderQuickList();
 });
 
 // FAVORITES

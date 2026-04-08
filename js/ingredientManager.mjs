@@ -1,16 +1,14 @@
 let ingredients = [];
 
 export function addIngredient(item) {
-  if (!item) return;
+  const normalized = item.toLowerCase().trim();
 
-  const formatted = item.toLowerCase();
+  let ingredients = getIngredients();
 
-  if (ingredients.includes(formatted)) return;
-
-  ingredients.push(formatted);
-
-  updateQuickItems();
-  updateButtons();
+  if (!ingredients.includes(normalized)) {
+    ingredients.push(normalized);
+    localStorage.setItem("ingredients", JSON.stringify(ingredients));
+  }
 }
 
 export function getIngredients() {
@@ -82,9 +80,9 @@ function updateQuickItems() {
   const quickItems = document.querySelectorAll(".quick-item");
 
   quickItems.forEach(item => {
-    const value = item.textContent.toLowerCase();
+    const value = item.dataset.value; 
 
-    if (ingredients.includes(value)) {
+    if (getIngredients().includes(value)) {
       item.classList.add("active");
     } else {
       item.classList.remove("active");

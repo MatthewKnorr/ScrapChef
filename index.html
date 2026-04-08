@@ -7,33 +7,35 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <link rel="stylesheet" href="./styles/styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+ <link href="https://fonts.googleapis.com/css2?family=DynaPuff:wdth,wght@75..100,400..700&display=swap"
+    rel="stylesheet">
 </head>
 
 <body>
-  <div class="header">
-    <div class="logo-main">
-      <img src="./logo.png" alt="">
+  <header id="header">
+    <h1 class="nav-title">ScrapChef</h1>
+
+    <div class="nav-links" id="navLinks">
+      <a href="#" data-replace="Home"><span>Home</span></a>
+      <a href="#" data-replace="Favorites"><span>Favorites</span></a>
+      <a href="#" data-replace="Random"><span>Random</span></a>
+      <!-- <a href="#" id="navSearch" class="nav-icon"><span>🔍</span></a> -->
     </div>
+    <div class="hamburger" id="hamburger">☰</div>
+  </header>
 
-    <header id="header">
-      <div class="hamburger" id="hamburger">☰</div>
-      <h1 class="nav-title">ScrapChef</h1>
-
-      <div class="nav-links" id="navLinks">
-        <a href="#" data-replace="Home"><span>Home</span></a>
-        <a href="#" data-replace="Favorites"><span>Favorites</span></a>
-        <a href="#" data-replace="Random"><span>Random</span></a>
-        <a href="#" id="navSearch" class="nav-icon"><span>🔍</span></a>
-      </div>
-    </header>
-  </div>
 
   <div class="container">
     <!-- HOME VIEW-->
     <div id="homeView">
       <div class="home-layout">
         <div class="home-main">
+          <div class="logo-large">
+            <img src="./logo.png" alt="">
+          </div>
           <h3>Enter Ingredient:</h3>
           <div class="input-section">
             <input id="ingredientInput" placeholder="Add ingredient...">
@@ -41,9 +43,6 @@
           </div>
           <div class="quick-add">
             <div id="quickList"></div>
-          </div>
-          <div class="logo-large">
-            <img src="./logo.png" alt="">
           </div>
           <h3>Your Ingredients:</h3>
           <div id="ingredientList"></div>
