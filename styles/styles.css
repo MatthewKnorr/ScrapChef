@@ -48,6 +48,8 @@ h3 {
     position: relative;
     display: flex;
     align-items: center;
+    justify-content: space-between;
+
     max-width: 1100px;
     margin: 0 auto 20px;
     color: white;
@@ -650,10 +652,29 @@ button:disabled {
 }
 
 #detailImage {
-    width: 100%;
-    max-width: 420px;
-    border-radius: 10px;
-    margin-bottom: 15px;
+  width: 100%;
+  max-width: 320px;
+  height: 320px;
+
+  object-fit: cover;
+
+  border-radius: 16px;
+  margin: 16px auto 20px;
+
+  display: block;
+
+  box-shadow:
+    0 12px 30px rgba(0, 0, 0, 0.15),
+    0 4px 10px rgba(0, 0, 0, 0.08);
+
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+#detailImage:hover {
+  transform: scale(1.02);
+  box-shadow:
+    0 16px 40px rgba(0, 0, 0, 0.2),
+    0 6px 14px rgba(0, 0, 0, 0.1);
 }
 
 /* INGREDIENTS */
@@ -735,12 +756,12 @@ button:disabled {
     border: none;
     font-size: 13px;
     font-weight: 600;
-    background: #f4d77a;
+    background: var(--secondary-yellow);
     color: #333;
 }
 
 .wake-btn.active {
-    background: #ffd54f;
+    background: var(--secondary-yellow);
     color: #000;
     box-shadow: 0 0 8px rgba(255, 213, 79, 0.6);
 }
@@ -775,9 +796,8 @@ button:disabled {
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
 }
 
-/* ACTIVE STATE */
 .toggle.active .toggle-track {
-    background: #ffd54f;
+    background: var(--secondary-yellow);
 }
 
 .toggle.active .toggle-thumb {
