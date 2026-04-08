@@ -54,12 +54,11 @@ h3 {
     padding: 14px 16px;
     border-radius: 10px;
 
-    background: linear-gradient(115deg,
-            #abc09f 0%,
-            #9fbf90 35%,
-            #7fb36a 45%,
-            #e5c86b 55%,
-            var(--secondary-yellow) 100%);
+    background: linear-gradient(
+            115deg,            
+            #afc66b 0%,
+            #fed65f 100%            
+    );
 }
 
 .logo-main {
@@ -438,6 +437,17 @@ button:disabled {
 
 #newSearchBtn {
     margin-bottom: 20px;
+}
+
+.secondary-btn {
+    margin-top: 15px;
+    margin-bottom: 10px;
+    padding: 14px 28px;
+    font-weight: 600;
+    background-color: var(--secondary-yellow);
+    padding: 16px;
+    font-size: 16px;
+    border-radius: 8px;
 }
 
 .returnHomeBtn {
@@ -852,52 +862,53 @@ button:disabled {
     .recipe-card h3 {
         font-size: 14px;
     }
+
     @media (max-width: 768px) {
 
-  #pantrySidebar {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
+        #pantrySidebar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
 
-    width: 100%;
-    border-radius: 12px 12px 0 0;
+            width: 100%;
+            border-radius: 12px 12px 0 0;
 
-    padding: 10px 12px;
-    background: #fffdf7;
+            padding: 10px 12px;
+            background: #fffdf7;
 
-    box-shadow: 0 -6px 20px rgba(0,0,0,0.08);
-  }
+            box-shadow: 0 -6px 20px rgba(0, 0, 0, 0.08);
+        }
 
-  #pantrySidebar h3 {
-    font-size: 12px;
-    margin-bottom: 6px;
-    text-align: center;
-  }
+        #pantrySidebar h3 {
+            font-size: 12px;
+            margin-bottom: 6px;
+            text-align: center;
+        }
 
-  #pantryList {
-    display: flex;
-    flex-wrap: wrap; 
-    gap: 6px;
+        #pantryList {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
 
-    max-height: 100px; 
-    overflow-y: auto; 
-  }
+            max-height: 100px;
+            overflow-y: auto;
+        }
 
-  #pantryList .tag {
-    flex: 0 1 auto; 
-    border: none;
+        #pantryList .tag {
+            flex: 0 1 auto;
+            border: none;
 
-    padding: 4px 8px;
-    font-size: 13px;
+            padding: 4px 8px;
+            font-size: 13px;
 
-    white-space: normal;
-  }
+            white-space: normal;
+        }
 
-  .container {
-    padding-bottom: 120px;
-  }
-}
+        .container {
+            padding-bottom: 120px;
+        }
+    }
 }
 
 @media (max-width: 768px) {

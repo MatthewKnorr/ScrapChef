@@ -90,3 +90,17 @@ export async function getRecipeDetails(id) {
     return null;
   }
 }
+
+export async function getRandomRecipe() {
+  try {
+    const url = `https://api.spoonacular.com/recipes/random?number=9&apiKey=${API_KEY}`;
+
+    const res = await fetch(url);
+    const data = await res.json();
+
+    return data.recipes || [];
+  } catch (err) {
+    console.error("Random recipe error:", err);
+    return [];
+  }
+}

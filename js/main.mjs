@@ -1,5 +1,5 @@
 import { addIngredient, getIngredients, renderIngredients, clearIngredients } from "./ingredientManager.mjs";
-import { searchRecipes, getRecipeDetails } from "./apiService.mjs";
+import { searchRecipes, getRecipeDetails, getRandomRecipe } from "./apiService.mjs";
 import { renderRecipes } from "./recipeList.mjs";
 import { renderRecipeDetails } from "./recipeDetails.mjs";
 import { getFavorites, getPantry, saveToPantry } from "./storage.mjs";
@@ -43,11 +43,20 @@ const quickList = document.getElementById("quickList");
 const savePantryBtn = document.getElementById("savePantryBtn");
 const pantryView = document.getElementById("pantryView");
 const pantryList = document.getElementById("pantryList");
+const pantrySidebar = document.getElementById("pantrySidebar");
 
 const prevBtn = document.getElementById("prevPageBtn");
 const nextBtn = document.getElementById("nextPageBtn");
 
+
 renderIngredients(ingredientList);
+
+function updateButtons() {
+  const ingredients = getIngredients();
+
+  searchBtn.disabled = ingredients.length === 0;
+  randomBtn.disabled = false; 
+}
 
 // slider display
 timeFilter.addEventListener("input", () => {
@@ -62,6 +71,7 @@ addBtn.addEventListener("click", () => {
   addIngredient(value);
   renderIngredients(ingredientList);
   renderQuickList();
+  updateButtons();
   input.value = "";
 });
 
@@ -75,9 +85,11 @@ searchBtn.addEventListener("click", async () => {
   if (ingredients.length === 0) return;
 
   homeView.style.display = "none";
+  pantrySidebar.style.display = "none";
   resultsView.style.display = "block";
   detailsView.style.display = "none";
   favoritesView.style.display = "none";
+  
 
   resultsTitle.textContent =
     "Results for: " +
@@ -124,13 +136,7 @@ function renderPaginatedRecipes() {
   const start = (currentPage - 1) * perPage;
   const end = start + perPage;
 
-  const pageData = allRecipes.slice(start, end); // ✅ DEFINE FIRST
-
-  // DEBUG (optional)
-  console.log("TOTAL:", allRecipes.length);
-  console.log("PAGE:", currentPage);
-  console.log("DATA LENGTH:", pageData.length);
-
+  const pageData = allRecipes.slice(start, end);
   renderRecipes(pageData);
 
   const indicator = document.getElementById("pageIndicator");
@@ -138,7 +144,6 @@ function renderPaginatedRecipes() {
     indicator.textContent = `${currentPage} / ${totalPages}`;
   }
 }
-
 
 // VIEW DETAILS FROM RESULTS
 resultsContainer.addEventListener("click", async (e) => {
@@ -174,6 +179,8 @@ returnHomeBtns.forEach(btn => {
     detailsView.style.display = "none";
     favoritesView.style.display = "none";
     homeView.style.display = "block";
+  pantrySidebar.style.display = "block";
+    
   });
 });
 
@@ -207,14 +214,16 @@ navLinksList[0].addEventListener("click", () => {
   resultsView.style.display = "none";
   detailsView.style.display = "none";
   favoritesView.style.display = "none";
+  pantrySidebar.style.display = "block";
 });
 
 navLinksList[1].addEventListener("click", () => {
   homeView.style.display = "none";
+  pantrySidebar.style.display = "none";
   resultsView.style.display = "none";
   detailsView.style.display = "none";
   favoritesView.style.display = "block";
-
+  
   renderFavorites();
 });
 
@@ -229,7 +238,7 @@ if (prevBtn) {
 
 if (nextBtn) {
   nextBtn.addEventListener("click", () => {
-    if (currentPage < 2) {
+    if (currentPage < Math.ceil(allRecipes.length / 9)) {
       currentPage++;
       renderPaginatedRecipes();
     }
@@ -274,14 +283,14 @@ if (quickList) {
       }
 
       btn.addEventListener("click", () => {
-        // re-check live state (prevents stale closure bug)
         const updatedIngredients = getIngredients();
 
         if (updatedIngredients.includes(btn.dataset.value)) return;
 
-        addIngredient(btn.dataset.value); // already lowercase
+        addIngredient(btn.dataset.value);
         renderIngredients(ingredientList);
-        renderQuickList(); // resync UI
+        renderQuickList();
+        updateButtons();
       });
 
       quickList.appendChild(btn);
@@ -297,6 +306,7 @@ if (clearBtn) {
     clearIngredients();
     renderIngredients(ingredientList);
     renderQuickList();
+    updateButtons();
   });
 }
 // FAVORITES
@@ -430,3 +440,26 @@ function addFilterTag(text, type) {
 
   activeFilters.appendChild(tag);
 }
+
+// Random
+
+const randomBtn = document.getElementById("randomBtn");
+
+randomBtn.addEventListener("click", async () => {
+  homeView.style.display = "none";
+  resultsView.style.display = "block";
+  detailsView.style.display = "none";
+  favoritesView.style.display = "none";
+  pantrySidebar.style.display = "none";
+
+  resultsTitle.textContent = "Random Recipes";
+
+  activeFilters.innerHTML = "";
+  resultsContainer.innerHTML = "<p>Loading...</p>";
+
+  const recipes = await getRandomRecipe();
+
+  allRecipes = recipes;
+  currentPage = 1;
+  renderPaginatedRecipes();
+});
