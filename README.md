@@ -5,7 +5,6 @@ Scrap Chef is a web application that helps users discover meals they can cook us
 ## Live Demo
 
 [View Live Site](https://matthewknorr.github.io/ScrapChef/index.html#)
-https://matthewknorr.github.io/ScrapChef/index.html#
 
 ## Features
 
