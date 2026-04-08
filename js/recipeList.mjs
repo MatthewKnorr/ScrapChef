@@ -31,6 +31,16 @@ export function renderRecipes(recipes) {
         const missed = recipe.missedIngredientCount || 0;
         const total = used + missed;
 
+        const percent = total ? Math.round((used / total) * 100) : 0;
+
+        function getBadge(percent) {
+            if (percent >= 80) return "🟢";
+            if (percent >= 50) return "🟡";
+            return "🔴";
+        }
+
+        const badge = getBadge(percent);
+
         const missingText = (recipe.missedIngredients || [])
             .slice(0, 2)
             .map(i => i.name)
@@ -40,9 +50,11 @@ export function renderRecipes(recipes) {
         info.className = "recipe-meta";
 
         info.innerHTML = `
-            <p>${used} / ${total} ingredients</p>
-            <p class="missing">Missing: ${missingText || "None"}</p>
-        `;
+    <p class="recipe-score">
+        ${badge} ${percent}% match (${used}/${total})
+    </p>
+    <p class="missing">Missing: ${missingText || "None"}</p>
+`;
 
         // BUTTON
         const btn = document.createElement("button");
