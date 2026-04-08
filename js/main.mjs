@@ -51,14 +51,19 @@ const pantrySidebar = document.getElementById("pantrySidebar");
 const prevBtn = document.getElementById("prevPageBtn");
 const nextBtn = document.getElementById("nextPageBtn");
 
+const randomBtn = document.getElementById("randomBtn");
+const navRandomBtn = document.getElementById("navRandomBtn");
 
 renderIngredients(ingredientList);
+updateButtons();
 
 function updateButtons() {
-  const ingredients = getIngredients();
+  const hasItems = getIngredients().length > 0;
+  searchBtn.disabled = !hasItems;
 
-  searchBtn.disabled = ingredients.length === 0;
-  randomBtn.disabled = false; 
+  if (randomBtn) {
+    randomBtn.classList.remove("disabled");
+  }
 }
 
 // slider display
@@ -262,46 +267,51 @@ export const commonIngredients = [
   { name: "Potato", emoji: "🥔" }
 ];
 
-if (quickList) {
-  function renderQuickList() {
-    quickList.innerHTML = "";
+function renderQuickList() {
+  if (!quickList) return;
 
-    const currentIngredients = getIngredients(); // already normalized
+  quickList.innerHTML = "";
 
-    commonIngredients.forEach(item => {
-      const btn = document.createElement("div");
-      btn.className = "quick-item";
+  const currentIngredients = getIngredients();
+  const pantryItems = getPantry();
 
-      // display (emoji + name)
-      btn.textContent = `${item.emoji} ${item.name}`;
+  commonIngredients.forEach(item => {
+    const btn = document.createElement("div");
+    btn.className = "quick-item";
 
-      // real data (NO emoji)
-      btn.dataset.value = item.name.toLowerCase();
+    btn.textContent = `${item.emoji} ${item.name}`;
+    btn.dataset.value = item.name.toLowerCase();
 
-      // active state check (clean + reliable)
-      const isActive = currentIngredients.includes(btn.dataset.value);
+    const isActive = currentIngredients.includes(btn.dataset.value);
+    const isInPantry = pantryItems.includes(btn.dataset.value);
 
-      if (isActive) {
-        btn.classList.add("active");
-      }
+    if (isActive || isInPantry) {
+      btn.classList.add("active");
+    }
 
-      btn.addEventListener("click", () => {
-        const updatedIngredients = getIngredients();
+    if (isInPantry) {
+      btn.classList.add("disabled");
+    }
 
-        if (updatedIngredients.includes(btn.dataset.value)) return;
+    btn.addEventListener("click", () => {
+      const updatedIngredients = getIngredients();
 
-        addIngredient(btn.dataset.value);
-        renderIngredients(ingredientList);
-        renderQuickList();
-        updateButtons();
-      });
+      if (
+        updatedIngredients.includes(btn.dataset.value) ||
+        pantryItems.includes(btn.dataset.value)
+      ) return;
 
-      quickList.appendChild(btn);
+      addIngredient(btn.dataset.value);
+      renderIngredients(ingredientList);
+      renderQuickList();
+      updateButtons();
     });
-  }
 
-  renderQuickList();
+    quickList.appendChild(btn);
+  });
 }
+
+renderQuickList();
 
 // CLEAR ALL
 if (clearBtn) {
@@ -372,18 +382,19 @@ function renderFavorites() {
 // Save to Pantry
 savePantryBtn.addEventListener("click", () => {
   const ingredients = getIngredients();
-
   if (ingredients.length === 0) return;
 
   saveToPantry(ingredients);
 
   renderPantry();
+  syncPantryToIngredients(); 
 
   savePantryBtn.textContent = "Saved!";
   setTimeout(() => {
     savePantryBtn.textContent = "Save to Pantry";
   }, 1200);
 });
+
 function renderPantry() {
   const pantry = getPantry();
 
@@ -423,6 +434,8 @@ function renderPantry() {
 }
 
 renderPantry();
+syncPantryToIngredients();
+updateButtons();
 
 // FILTER TAGS
 function addFilterTag(text, type) {
@@ -445,10 +458,7 @@ function addFilterTag(text, type) {
 }
 
 // Random
-
-const randomBtn = document.getElementById("randomBtn");
-
-randomBtn.addEventListener("click", async () => {
+async function handleRandomRecipes() {
   homeView.style.display = "none";
   resultsView.style.display = "block";
   detailsView.style.display = "none";
@@ -460,12 +470,39 @@ randomBtn.addEventListener("click", async () => {
   activeFilters.innerHTML = "";
   resultsContainer.innerHTML = "<p>Loading...</p>";
 
-  const recipes = await getRandomRecipe();
+  const data = await getRandomRecipe();
 
-  allRecipes = recipes;
+  if (!Array.isArray(data) || data.length === 0) {
+    resultsContainer.innerHTML = "<p>No recipes found.</p>";
+    return;
+  }
+
+  allRecipes = [];
+
+  data.forEach(recipe => {
+    allRecipes.push({
+      id: recipe.id,
+      title: recipe.title,
+      image: recipe.image,
+      missedIngredientCount: 0,
+      usedIngredientCount: 0
+    });
+  });
+
   currentPage = 1;
   renderPaginatedRecipes();
-});
+}
+
+if (randomBtn) {
+  randomBtn.addEventListener("click", handleRandomRecipes);
+}
+
+if (navRandomBtn) {
+  navRandomBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+    handleRandomRecipes();
+  });
+}
 
 // Stay Awake Logic
 async function toggleWakeLock() {
@@ -542,4 +579,19 @@ function applyScaling() {
 
     item.textContent = updated;
   });
+}
+
+function syncPantryToIngredients() {
+  const pantryItems = getPantry();
+  const currentIngredients = getIngredients();
+
+  pantryItems.forEach(item => {
+    if (!currentIngredients.includes(item)) {
+      addIngredient(item);
+    }
+  });
+
+  renderIngredients(ingredientList);
+  renderQuickList();
+  updateButtons();
 }

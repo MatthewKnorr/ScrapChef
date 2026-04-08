@@ -61,20 +61,8 @@ h3 {
             #fed65f 100%);
 }
 
-.logo-main {
-    margin: 0;
-    padding-bottom: 10px;
-}
-
-.logo-main img {
-    height: 80px;
-    width: auto;
-    object-fit: contain;
-}
-
-.logo-large {
-    margin: 0;
-    padding: 0;
+#header img {
+    height: 30px;
 }
 
 .logo-large img {
@@ -102,12 +90,6 @@ h3 {
     transform: rotate(-75deg);
 }
 
-.nav-title {
-    font-family: DynaPuff;
-    margin-left: 10px;
-    font-size: 25px;
-    font-weight: 400;
-}
 
 /* NAV */
 .nav-links {
@@ -126,8 +108,7 @@ h3 {
 }
 
 .nav-links.open {
-    max-height: 180px;
-    padding: 12px 14px;
+    padding: 0 14px;
     opacity: 1;
 }
 
@@ -263,88 +244,16 @@ button {
 
 button:disabled {
     opacity: 0.5;
+    pointer-events: none;
     cursor: not-allowed;
-    transform: none;
+    transform: none ;
 }
 
-.orb-row {
-    width: 100%;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 60px 120px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    position: relative;
-}
-
-.orb {
-    width: 140px;
-    height: 140px;
-    border-radius: 50%;
-    position: relative;
-    flex-shrink: 0;
-    animation: floatOrb 6s ease-in-out infinite;
-    filter: blur(0.2px);
-}
-
-/* Orb color looks */
-.orb::before,
-.orb::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    border-radius: 50%;
-}
-
-.orb::before {
-    background:
-        radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.15) 22%, transparent 35%),
-        radial-gradient(circle at center, rgba(255, 255, 255, 0.15), transparent 60%);
-    z-index: 2;
-}
-
-.orb::after {
-    inset: -18px;
-    z-index: -1;
-    filter: blur(24px);
-    opacity: 0.85;
-}
-
-.pantry-orbs {
-    display: flex;
-    justify-content: center;
-    gap: 40px;
-    margin: 30px 0;
-}
-
-.orb {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-
-    opacity: 0.4;
-    transform: scale(0.9);
-
-    transition: all 0.25s ease;
-}
-
-.orb.active {
-    opacity: 1;
-    transform: scale(1);
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
-}
-
-.orb.protein {
-    background: linear-gradient(145deg, #f5c542, #e59e1a);
-}
-
-.orb.veggie {
-    background: linear-gradient(145deg, #6bcf9b, #3ba77a);
-}
-
-.orb.fruit {
-    background: linear-gradient(145deg, #e56a94, #c9456e);
+button.disabled {
+    opacity: 0.5;
+    pointer-events: none;
+    cursor: not-allowed;
+    transform: none ;
 }
 
 /* Clear All Tag */
@@ -420,6 +329,29 @@ button:disabled {
 .quick-item:hover {
     transform: translateY(-1px);
 }
+
+
+.ingredient-icons {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin: 10px 0 20px;
+    opacity: 0.9;
+}
+
+.ingredient-icons img {
+    width: 50px;
+    height: 50px;
+    object-fit: contain;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+    cursor: pointer;
+}
+
+.ingredient-icons img:hover {
+    transform: translateY(-4px) scale(1.05);
+    opacity: 1;
+}
+
 
 /* SEARCH BUTTON */
 #searchBtn {
@@ -790,27 +722,22 @@ button:disabled {
     top: 110px;
     right: 20px;
     width: 200px;
-
     background: #fffdf7;
     border: 1px solid rgba(0, 0, 0, 0.08);
     border-radius: 8px;
-
     padding: 12px;
-
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
-
     display: flex;
     flex-direction: column;
     gap: 8px;
     z-index: 1000;
 }
 
-#pantrySidebar h3 {
-    font-family: 'DynaPuff', cursive;
-    margin: 0;
-    font-size: 14px;
-    text-align: center;
-    opacity: 0.7;
+#pantrySidebar img {
+    height: 20px;
+    width: 80px;
+    align-self: center;
+    display: block;
 }
 
 #pantryList {

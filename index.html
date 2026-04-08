@@ -12,16 +12,17 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=DynaPuff:wdth,wght@75..100,400..700&display=swap"
     rel="stylesheet">
+
+  <link rel="icon" type="image/x-icon" href="./assets/favicon-32x32.png">
 </head>
 
 <body>
   <header id="header">
-    <h1 class="nav-title">ScrapChef</h1>
-
+    <img src="./assets/SrapChef_Black.png" alt="ScrapChef">
     <div class="nav-links" id="navLinks">
       <a href="#" data-replace="Home"><span>Home</span></a>
       <a href="#" data-replace="Favorites"><span>Favorites</span></a>
-      <a href="#" id="randomBtn" data-replace="Random"><span>Random</span></a>
+      <a href="#" id="navRandomBtn">Random</a>
     </div>
     <div class="hamburger" id="hamburger">☰</div>
   </header>
@@ -33,7 +34,7 @@
       <div class="home-layout">
         <div class="home-main">
           <div class="logo-large">
-            <img src="./logo.png" alt="">
+            <img src="./assets/Logo-large.png" alt="">
           </div>
           <h3>Enter Ingredient:</h3>
           <div class="input-section">
@@ -43,10 +44,17 @@
           <div class="quick-add">
             <div id="quickList"></div>
           </div>
+
           <h3>Your Ingredients:</h3>
           <div id="ingredientList"></div>
           <div class="pantry-actions">
             <button id="savePantryBtn">Save to Pantry</button>
+          </div>
+
+          <div class="ingredient-icons">
+            <img src="./assets/icons/Beat_Icon.png" alt="Beet">
+            <img src="./assets/icons/Lemon_Icon.png" alt="Lemon">
+            <img src="./assets/icons/Meat_Icon.png" alt="Meat">
           </div>
 
           <div class="filter-panel">
@@ -140,7 +148,7 @@
   </div>
 
   <div id="pantrySidebar">
-    <h3>Pantry</h3>
+    <img src="./assets/Pantry_Black.png" alt="Pantry">
     <div id="pantryList"></div>
   </div>
   <script type="module" src="./js/main.mjs"></script>
