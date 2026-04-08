@@ -1,12 +1,15 @@
 let ingredients = [];
 
 export function addIngredient(item) {
-  const normalized = item.toLowerCase().trim();
+  const sanitized = item
+    .replace(/[^a-zA-Z\s]/g, "") 
+    .toLowerCase()
+    .trim();
 
-  let ingredients = getIngredients();
+  if (!sanitized) return; 
 
-  if (!ingredients.includes(normalized)) {
-    ingredients.push(normalized);
+  if (!ingredients.includes(sanitized)) {
+    ingredients.push(sanitized);
     localStorage.setItem("ingredients", JSON.stringify(ingredients));
   }
 }

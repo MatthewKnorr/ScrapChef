@@ -272,7 +272,6 @@ button:disabled {
     max-width: 1200px;
     margin: 0 auto;
     padding: 60px 120px;
-    /* more space on outer sides */
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -330,7 +329,6 @@ button:disabled {
     transition: all 0.25s ease;
 }
 
-/* Active state */
 .orb.active {
     opacity: 1;
     transform: scale(1);
@@ -783,10 +781,7 @@ button:disabled {
         top: 100%;
         left: 0;
         right: 0;
-
         background: transparent;
-        /* KEY FIX */
-
         display: flex;
         flex-direction: column;
         align-items: center;
