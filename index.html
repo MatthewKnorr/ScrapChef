@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
- <link href="https://fonts.googleapis.com/css2?family=DynaPuff:wdth,wght@75..100,400..700&display=swap"
+  <link href="https://fonts.googleapis.com/css2?family=DynaPuff:wdth,wght@75..100,400..700&display=swap"
     rel="stylesheet">
 </head>
 
@@ -46,6 +46,14 @@
           </div>
           <h3>Your Ingredients:</h3>
           <div id="ingredientList"></div>
+          <div class="pantry-orbs">
+            <div class="orb protein" id="orbProtein"></div>
+            <div class="orb veggie" id="orbVeggie"></div>
+            <div class="orb fruit" id="orbFruit"></div>
+          </div>
+          <div class="pantry-actions">
+            <button id="savePantryBtn">Save to Pantry</button>
+          </div>
           <div class="filter-panel">
             <h3>Refine Results</h3>
 
@@ -90,6 +98,11 @@
       <div id="activeFilters"></div>
       <button class="returnHomeBtn">Return Home</button>
       <div id="recipeResults"></div>
+      <div id="paginationControls">
+        <button id="prevPageBtn">←</button>
+        <span id="pageIndicator">1 / 2</span>
+        <button id="nextPageBtn">→</button>
+      </div>
     </div>
 
     <!-- DETAILS VIEW -->
@@ -114,9 +127,12 @@
       <button class="returnHomeBtn">Return Home</button>
       <div id="favoritesList"></div>
     </div>
-
   </div>
 
+  <div id="pantrySidebar">
+    <h3>Pantry</h3>
+    <div id="pantryList"></div>
+  </div>
   <script type="module" src="./js/main.mjs"></script>
 
 </body>

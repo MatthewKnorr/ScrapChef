@@ -20,7 +20,7 @@ export async function searchRecipes(ingredients) {
   }
 
   try {
-    const url = `https://api.spoonacular.com/recipes/findByIngredients?ingredients=${ingredients.join(",")}&number=9&apiKey=${API_KEY}`;
+    const url = `https://api.spoonacular.com/recipes/findByIngredients?ingredients=${ingredients.join(",")}&number=18&apiKey=${API_KEY}`;
 
     const res = await fetch(url);
     const data = await res.json();

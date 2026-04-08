@@ -2,9 +2,11 @@ import { addIngredient, getIngredients, renderIngredients, clearIngredients } fr
 import { searchRecipes, getRecipeDetails } from "./apiService.mjs";
 import { renderRecipes } from "./recipeList.mjs";
 import { renderRecipeDetails } from "./recipeDetails.mjs";
-import { getFavorites } from "./storage.mjs";
+import { getFavorites, getPantry, saveToPantry } from "./storage.mjs";
 
 let previousView = "home";
+let allRecipes = [];
+let currentPage = 1;
 
 const input = document.getElementById("ingredientInput");
 const addBtn = document.getElementById("addBtn");
@@ -37,6 +39,13 @@ const navLinks = document.getElementById("navLinks");
 const navLinksList = document.querySelectorAll(".nav-links a");
 
 const quickList = document.getElementById("quickList");
+
+const savePantryBtn = document.getElementById("savePantryBtn");
+const pantryView = document.getElementById("pantryView");
+const pantryList = document.getElementById("pantryList");
+
+const prevBtn = document.getElementById("prevPageBtn");
+const nextBtn = document.getElementById("nextPageBtn");
 
 renderIngredients(ingredientList);
 
@@ -97,16 +106,39 @@ searchBtn.addEventListener("click", async () => {
     timeFilter.value
   );
 
-  renderRecipes(recipes);
+  allRecipes = recipes;
+  currentPage = 1;
+  renderPaginatedRecipes();
 });
 
+// Paginatation
+function renderPaginatedRecipes() {
+  if (!allRecipes.length) {
+    resultsContainer.innerHTML = "<p>No recipes found.</p>";
+    return;
+  }
 
-// navSearch.addEventListener("click", () => {
-//   homeView.style.display = "block";
-//   resultsView.style.display = "none";
-//   detailsView.style.display = "none";
-//   favoritesView.style.display = "none";
-// });
+  const perPage = 9;
+  const totalPages = Math.ceil(allRecipes.length / perPage);
+
+  const start = (currentPage - 1) * perPage;
+  const end = start + perPage;
+
+  const pageData = allRecipes.slice(start, end); // ✅ DEFINE FIRST
+
+  // DEBUG (optional)
+  console.log("TOTAL:", allRecipes.length);
+  console.log("PAGE:", currentPage);
+  console.log("DATA LENGTH:", pageData.length);
+
+  renderRecipes(pageData);
+
+  const indicator = document.getElementById("pageIndicator");
+  if (indicator) {
+    indicator.textContent = `${currentPage} / ${totalPages}`;
+  }
+}
+
 
 // VIEW DETAILS FROM RESULTS
 resultsContainer.addEventListener("click", async (e) => {
@@ -186,6 +218,24 @@ navLinksList[1].addEventListener("click", () => {
   renderFavorites();
 });
 
+if (prevBtn) {
+  prevBtn.addEventListener("click", () => {
+    if (currentPage > 1) {
+      currentPage--;
+      renderPaginatedRecipes();
+    }
+  });
+}
+
+if (nextBtn) {
+  nextBtn.addEventListener("click", () => {
+    if (currentPage < 2) {
+      currentPage++;
+      renderPaginatedRecipes();
+    }
+  });
+}
+
 // QUICK ADD
 export const commonIngredients = [
   { name: "Eggs", emoji: "🥚" },
@@ -202,52 +252,53 @@ export const commonIngredients = [
 
 if (quickList) {
   function renderQuickList() {
-  quickList.innerHTML = "";
+    quickList.innerHTML = "";
 
-  const currentIngredients = getIngredients(); // already normalized
+    const currentIngredients = getIngredients(); // already normalized
 
-  commonIngredients.forEach(item => {
-    const btn = document.createElement("div");
-    btn.className = "quick-item";
+    commonIngredients.forEach(item => {
+      const btn = document.createElement("div");
+      btn.className = "quick-item";
 
-    // display (emoji + name)
-    btn.textContent = `${item.emoji} ${item.name}`;
+      // display (emoji + name)
+      btn.textContent = `${item.emoji} ${item.name}`;
 
-    // real data (NO emoji)
-    btn.dataset.value = item.name.toLowerCase();
+      // real data (NO emoji)
+      btn.dataset.value = item.name.toLowerCase();
 
-    // active state check (clean + reliable)
-    const isActive = currentIngredients.includes(btn.dataset.value);
+      // active state check (clean + reliable)
+      const isActive = currentIngredients.includes(btn.dataset.value);
 
-    if (isActive) {
-      btn.classList.add("active");
-    }
+      if (isActive) {
+        btn.classList.add("active");
+      }
 
-    btn.addEventListener("click", () => {
-      // re-check live state (prevents stale closure bug)
-      const updatedIngredients = getIngredients();
+      btn.addEventListener("click", () => {
+        // re-check live state (prevents stale closure bug)
+        const updatedIngredients = getIngredients();
 
-      if (updatedIngredients.includes(btn.dataset.value)) return;
+        if (updatedIngredients.includes(btn.dataset.value)) return;
 
-      addIngredient(btn.dataset.value); // already lowercase
-      renderIngredients(ingredientList);
-      renderQuickList(); // resync UI
+        addIngredient(btn.dataset.value); // already lowercase
+        renderIngredients(ingredientList);
+        renderQuickList(); // resync UI
+      });
+
+      quickList.appendChild(btn);
     });
-
-    quickList.appendChild(btn);
-  });
-}
+  }
 
   renderQuickList();
 }
 
 // CLEAR ALL
-clearBtn.addEventListener("click", () => {
-  clearIngredients();
-  renderIngredients(ingredientList);
-  renderQuickList();
-});
-
+if (clearBtn) {
+  clearBtn.addEventListener("click", () => {
+    clearIngredients();
+    renderIngredients(ingredientList);
+    renderQuickList();
+  });
+}
 // FAVORITES
 function renderFavorites() {
   const favorites = getFavorites();
@@ -304,6 +355,61 @@ function renderFavorites() {
     favoritesList.appendChild(card);
   });
 }
+
+// Save to Pantry
+savePantryBtn.addEventListener("click", () => {
+  const ingredients = getIngredients();
+
+  if (ingredients.length === 0) return;
+
+  saveToPantry(ingredients);
+
+  renderPantry();
+
+  savePantryBtn.textContent = "Saved!";
+  setTimeout(() => {
+    savePantryBtn.textContent = "Save to Pantry";
+  }, 1200);
+});
+function renderPantry() {
+  const pantry = getPantry();
+
+  pantryList.innerHTML = "";
+
+  if (pantry.length === 0) {
+    pantryList.innerHTML = "<p>No pantry items yet.</p>";
+    return;
+  }
+
+  pantry.forEach(item => {
+    const tag = document.createElement("span");
+    tag.className = "tag";
+
+    tag.innerHTML = `
+      <span class="text">${item.charAt(0).toUpperCase() + item.slice(1)}</span>
+      <span class="remove">×</span>
+    `;
+
+    tag.addEventListener("click", () => {
+      addIngredient(item);
+      renderIngredients(ingredientList);
+      renderQuickList();
+    });
+
+    tag.querySelector(".remove").addEventListener("click", (e) => {
+      e.stopPropagation();
+
+      const updated = pantry.filter(i => i !== item);
+      localStorage.setItem("pantry", JSON.stringify(updated));
+
+      renderPantry();
+    });
+
+    pantryList.appendChild(tag);
+  });
+}
+
+renderPantry();
 
 // FILTER TAGS
 function addFilterTag(text, type) {

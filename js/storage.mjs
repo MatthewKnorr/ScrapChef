@@ -17,3 +17,16 @@ export function saveFavorite(recipe) {
 
   localStorage.setItem(KEY, JSON.stringify(favorites));
 }
+
+export function getPantry() {
+  const stored = localStorage.getItem("pantry");
+  return stored ? JSON.parse(stored) : [];
+}
+
+export function saveToPantry(items) {
+  const pantry = getPantry();
+
+  const merged = [...new Set([...pantry, ...items])];
+
+  localStorage.setItem("pantry", JSON.stringify(merged));
+}

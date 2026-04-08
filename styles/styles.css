@@ -268,6 +268,88 @@ button:disabled {
     transform: none;
 }
 
+.orb-row {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 60px 120px;
+    /* more space on outer sides */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+}
+
+.orb {
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    position: relative;
+    flex-shrink: 0;
+    animation: floatOrb 6s ease-in-out infinite;
+    filter: blur(0.2px);
+}
+
+/* Orb color looks */
+.orb::before,
+.orb::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+}
+
+.orb::before {
+    background:
+        radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.15) 22%, transparent 35%),
+        radial-gradient(circle at center, rgba(255, 255, 255, 0.15), transparent 60%);
+    z-index: 2;
+}
+
+.orb::after {
+    inset: -18px;
+    z-index: -1;
+    filter: blur(24px);
+    opacity: 0.85;
+}
+
+.pantry-orbs {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    margin: 30px 0;
+}
+
+.orb {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+
+    opacity: 0.4;
+    transform: scale(0.9);
+
+    transition: all 0.25s ease;
+}
+
+/* Active state */
+.orb.active {
+    opacity: 1;
+    transform: scale(1);
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+
+.orb.protein {
+    background: linear-gradient(145deg, #f5c542, #e59e1a);
+}
+
+.orb.veggie {
+    background: linear-gradient(145deg, #6bcf9b, #3ba77a);
+}
+
+.orb.fruit {
+    background: linear-gradient(145deg, #e56a94, #c9456e);
+}
+
 /* Clear All Tag */
 .clear-tag {
     background: #f5b5b5;
@@ -301,7 +383,6 @@ button:disabled {
     padding: 6px 14px;
     border-radius: 6px;
     font-size: 14px;
-    font-weight: 500;
 }
 
 .tag .remove {
@@ -620,6 +701,54 @@ button:disabled {
     margin-top: 20px;
 }
 
+/* PANTRY SIDEBAR */
+#pantrySidebar {
+    position: fixed;
+    top: 110px;
+    right: 20px;
+    width: 200px;
+
+    background: #fffdf7;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    border-radius: 8px;
+
+    padding: 12px;
+
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    z-index: 1000;
+}
+
+#pantrySidebar h3 {
+    font-family: 'DynaPuff', cursive;
+    margin: 0;
+    font-size: 14px;
+    text-align: center;
+    opacity: 0.7;
+}
+
+#pantryList {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+#pantryList .tag {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    font-size: 13px;
+    padding: 4px 6px;
+
+    background: transparent;
+    border-bottom: 1px dashed rgba(0, 0, 0, 0.15);
+}
+
+
 /* MOBILE */
 @media (max-width: 767px) {
     body {
@@ -723,7 +852,96 @@ button:disabled {
     .recipe-card h3 {
         font-size: 14px;
     }
+    @media (max-width: 768px) {
+
+  #pantrySidebar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+
+    width: 100%;
+    border-radius: 12px 12px 0 0;
+
+    padding: 10px 12px;
+    background: #fffdf7;
+
+    box-shadow: 0 -6px 20px rgba(0,0,0,0.08);
+  }
+
+  #pantrySidebar h3 {
+    font-size: 12px;
+    margin-bottom: 6px;
+    text-align: center;
+  }
+
+  #pantryList {
+    display: flex;
+    flex-wrap: wrap; 
+    gap: 6px;
+
+    max-height: 100px; 
+    overflow-y: auto; 
+  }
+
+  #pantryList .tag {
+    flex: 0 1 auto; 
+    border: none;
+
+    padding: 4px 8px;
+    font-size: 13px;
+
+    white-space: normal;
+  }
+
+  .container {
+    padding-bottom: 120px;
+  }
 }
+}
+
+@media (max-width: 768px) {
+    #pantrySidebar {
+        position: fixed;
+        bottom: 0;
+        top: auto;
+        right: 0;
+        left: 0;
+
+        width: 100%;
+        border-radius: 12px 12px 0 0;
+
+        padding: 10px 12px;
+
+        background: #fffdf7;
+
+        box-shadow: 0 -6px 20px rgba(0, 0, 0, 0.08);
+    }
+
+    #pantrySidebar h3 {
+        font-size: 12px;
+        margin-bottom: 6px;
+    }
+
+    #pantryList {
+        flex-direction: row;
+        gap: 10px;
+        overflow-x: auto;
+    }
+
+    #pantryList .tag {
+        flex: 0 0 auto;
+        border-bottom: none;
+
+        border-right: 1px dashed rgba(0, 0, 0, 0.15);
+        padding-right: 8px;
+    }
+
+    .container {
+        padding-bottom: 90px;
+    }
+}
+
 
 /* DESKTOP */
 @media (min-width: 768px) {
