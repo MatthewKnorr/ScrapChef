@@ -7,6 +7,9 @@ import { getFavorites, getPantry, saveToPantry } from "./storage.mjs";
 let previousView = "home";
 let allRecipes = [];
 let currentPage = 1;
+let wakeLock = null;
+let isAwake = false;
+let currentScale = 1;
 
 const input = document.getElementById("ingredientInput");
 const addBtn = document.getElementById("addBtn");
@@ -463,3 +466,80 @@ randomBtn.addEventListener("click", async () => {
   currentPage = 1;
   renderPaginatedRecipes();
 });
+
+// Stay Awake Logic
+async function toggleWakeLock() {
+  try {
+    if (!isAwake) {
+      wakeLock = await navigator.wakeLock.request("screen");
+      isAwake = true;
+
+      wakeLock.addEventListener("release", () => {
+        isAwake = false;
+        updateWakeUI();
+      });
+    } else {
+      await wakeLock.release();
+      wakeLock = null;
+      isAwake = false;
+    }
+
+    updateWakeUI();
+  } catch (err) {
+    console.error("Wake Lock error:", err);
+  }
+}
+
+function updateWakeUI() {
+  const toggle = document.getElementById("wakeToggle");
+  if (!toggle) return;
+
+  if (isAwake) {
+    toggle.classList.add("active");
+  } else {
+    toggle.classList.remove("active");
+  }
+}
+
+document.addEventListener("click", (e) => {
+  const toggle = e.target.closest("#wakeToggle");
+  if (!toggle) return;
+
+  toggleWakeLock();
+});
+
+// Recipe Scale Logic
+
+document.addEventListener("click", (e) => {
+  if (e.target.closest("#scaleControl button")) {
+    const btn = e.target.closest("#scaleControl button");
+    currentScale = parseFloat(btn.dataset.scale);
+
+    document.querySelectorAll("#scaleControl button")
+      .forEach(b => b.classList.remove("active"));
+
+    btn.classList.add("active");
+
+    applyScaling();
+  }
+});
+
+function applyScaling() {
+  const items = document.querySelectorAll("#detailIngredients li");
+
+  items.forEach(item => {
+    if (!item.dataset.original) {
+      item.dataset.original = item.textContent;
+    }
+
+    const text = item.dataset.original;
+
+    const updated = text.replace(/(\d+(\.\d+)?)/g, (num) => {
+      return (parseFloat(num) * currentScale)
+        .toFixed(2)
+        .replace(/\.00$/, "");
+    });
+
+    item.textContent = updated;
+  });
+}

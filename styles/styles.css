@@ -1,4 +1,4 @@
-:root { 
+:root {
     --primary-green: #afc66b;
     --secondary-yellow: #fed65f;
     --white: #ffffff;
@@ -54,11 +54,9 @@ h3 {
     padding: 14px 16px;
     border-radius: 10px;
 
-    background: linear-gradient(
-            115deg,            
+    background: linear-gradient(115deg,
             #afc66b 0%,
-            #fed65f 100%            
-    );
+            #fed65f 100%);
 }
 
 .logo-main {
@@ -702,6 +700,96 @@ button:disabled {
     padding: 10px 14px;
 }
 
+#recipeControls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 12px 0 8px;
+    gap: 10px;
+}
+
+#scaleControl {
+    display: flex;
+    gap: 6px;
+}
+
+#scaleControl button {
+    padding: 6px 10px;
+    border-radius: 6px;
+    background: #e5e5e5;
+    border: none;
+    font-size: 13px;
+    font-weight: 600;
+    opacity: 0.6;
+}
+
+#scaleControl button.active {
+    background: var(--primary-green);
+    color: white;
+    opacity: 1;
+}
+
+.wake-btn {
+    padding: 6px 12px;
+    border-radius: 6px;
+    border: none;
+    font-size: 13px;
+    font-weight: 600;
+    background: #f4d77a;
+    color: #333;
+}
+
+.wake-btn.active {
+    background: #ffd54f;
+    color: #000;
+    box-shadow: 0 0 8px rgba(255, 213, 79, 0.6);
+}
+
+.toggle {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    user-select: none;
+    flex-direction: row-reverse;
+}
+
+.toggle-track {
+    width: 42px;
+    height: 22px;
+    background: #ccc;
+    border-radius: 999px;
+    position: relative;
+    transition: background 0.25s ease;
+}
+
+.toggle-thumb {
+    width: 18px;
+    height: 18px;
+    background: white;
+    border-radius: 50%;
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    transition: transform 0.25s ease;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+/* ACTIVE STATE */
+.toggle.active .toggle-track {
+    background: #ffd54f;
+}
+
+.toggle.active .toggle-thumb {
+    transform: translateX(20px);
+}
+
+.toggle-label {
+    font-size: 13px;
+    font-weight: 600;
+    color: #555;
+}
+
 /* FAVORITES */
 #favoritesList {
     display: grid;
@@ -781,7 +869,9 @@ button:disabled {
         top: 100%;
         left: 0;
         right: 0;
-        background: transparent;
+        background: linear-gradient(115deg,
+                #afc66b 0%,
+                #fed65f 100%);
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -858,55 +948,6 @@ button:disabled {
         font-size: 14px;
     }
 
-    @media (max-width: 768px) {
-
-        #pantrySidebar {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-
-            width: 100%;
-            border-radius: 12px 12px 0 0;
-
-            padding: 10px 12px;
-            background: #fffdf7;
-
-            box-shadow: 0 -6px 20px rgba(0, 0, 0, 0.08);
-        }
-
-        #pantrySidebar h3 {
-            font-size: 12px;
-            margin-bottom: 6px;
-            text-align: center;
-        }
-
-        #pantryList {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 6px;
-
-            max-height: 100px;
-            overflow-y: auto;
-        }
-
-        #pantryList .tag {
-            flex: 0 1 auto;
-            border: none;
-
-            padding: 4px 8px;
-            font-size: 13px;
-
-            white-space: normal;
-        }
-
-        .container {
-            padding-bottom: 120px;
-        }
-    }
-}
-
-@media (max-width: 768px) {
     #pantrySidebar {
         position: fixed;
         bottom: 0;
@@ -946,6 +987,7 @@ button:disabled {
     .container {
         padding-bottom: 90px;
     }
+
 }
 
 
