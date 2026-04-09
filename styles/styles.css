@@ -246,14 +246,14 @@ button:disabled {
     opacity: 0.5;
     pointer-events: none;
     cursor: not-allowed;
-    transform: none ;
+    transform: none;
 }
 
 button.disabled {
     opacity: 0.5;
     pointer-events: none;
     cursor: not-allowed;
-    transform: none ;
+    transform: none;
 }
 
 /* Clear All Tag */
@@ -394,7 +394,7 @@ button.disabled {
     align-items: center;
     justify-content: center;
     gap: 18px;
-    background: rgba(255,255,255,0.7);
+    background: rgba(255, 255, 255, 0.7);
     backdrop-filter: blur(10px);
     border-radius: 999px;
     padding: 8px 16px;
@@ -551,29 +551,29 @@ button.disabled {
 }
 
 #detailImage {
-  width: 100%;
-  max-width: 320px;
-  height: 320px;
+    width: 100%;
+    max-width: 320px;
+    height: 320px;
 
-  object-fit: cover;
+    object-fit: cover;
 
-  border-radius: 16px;
-  margin: 16px auto 20px;
+    border-radius: 16px;
+    margin: 16px auto 20px;
 
-  display: block;
+    display: block;
 
-  box-shadow:
-    0 12px 30px rgba(0, 0, 0, 0.15),
-    0 4px 10px rgba(0, 0, 0, 0.08);
+    box-shadow:
+        0 12px 30px rgba(0, 0, 0, 0.15),
+        0 4px 10px rgba(0, 0, 0, 0.08);
 
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
 
 #detailImage:hover {
-  transform: scale(1.02);
-  box-shadow:
-    0 16px 40px rgba(0, 0, 0, 0.2),
-    0 6px 14px rgba(0, 0, 0, 0.1);
+    transform: scale(1.02);
+    box-shadow:
+        0 16px 40px rgba(0, 0, 0, 0.2),
+        0 6px 14px rgba(0, 0, 0, 0.1);
 }
 
 /* INGREDIENTS */
@@ -902,6 +902,24 @@ button.disabled {
         padding-bottom: 90px;
     }
 
+
+    @media (max-width: 767px) {
+
+        .filter-panel {
+            background: none;
+            padding: 0;
+            margin: 16px 0 10px;
+            gap: 10px;
+        }
+
+        .filter-row {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+
+    }
 }
 
 
