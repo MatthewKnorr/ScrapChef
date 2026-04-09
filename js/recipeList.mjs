@@ -15,7 +15,6 @@ export function renderRecipes(recipes) {
 
         card.dataset.id = recipe.id;
 
-        // IMAGE
         const img = document.createElement("img");
         img.src = recipe.image || PLACEHOLDER;
 
@@ -23,7 +22,6 @@ export function renderRecipes(recipes) {
             img.src = PLACEHOLDER;
         };
 
-        // TITLE
         const title = document.createElement("h3");
         title.textContent = recipe.title || "Untitled Recipe";
 
@@ -56,12 +54,10 @@ export function renderRecipes(recipes) {
     <p class="missing">Missing: ${missingText || "None"}</p>
 `;
 
-        // BUTTON
         const btn = document.createElement("button");
         btn.textContent = "View Recipe";
         btn.className = "view-btn";
 
-        // BUILD CARD
         card.appendChild(img);
         card.appendChild(title);
         card.appendChild(info);

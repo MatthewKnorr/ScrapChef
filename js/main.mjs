@@ -4,6 +4,7 @@ import { renderRecipes } from "./recipeList.mjs";
 import { renderRecipeDetails } from "./recipeDetails.mjs";
 import { getFavorites, getPantry, saveToPantry } from "./storage.mjs";
 
+// STATE / GLOBAL VARS
 let previousView = "home";
 let allRecipes = [];
 let currentPage = 1;
@@ -11,6 +12,7 @@ let wakeLock = null;
 let isAwake = false;
 let currentScale = 1;
 
+// DOM ELEMENTS
 const input = document.getElementById("ingredientInput");
 const addBtn = document.getElementById("addBtn");
 const ingredientList = document.getElementById("ingredientList");

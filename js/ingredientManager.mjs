@@ -2,11 +2,11 @@ let ingredients = [];
 
 export function addIngredient(item) {
   const sanitized = item
-    .replace(/[^a-zA-Z\s]/g, "") 
+    .replace(/[^a-zA-Z\s]/g, "")
     .toLowerCase()
     .trim();
 
-  if (!sanitized) return; 
+  if (!sanitized) return;
 
   if (!ingredients.includes(sanitized)) {
     ingredients.push(sanitized);
@@ -83,7 +83,7 @@ function updateQuickItems() {
   const quickItems = document.querySelectorAll(".quick-item");
 
   quickItems.forEach(item => {
-    const value = item.dataset.value; 
+    const value = item.dataset.value;
 
     if (getIngredients().includes(value)) {
       item.classList.add("active");

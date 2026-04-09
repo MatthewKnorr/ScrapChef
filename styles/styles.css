@@ -19,7 +19,6 @@ body {
     margin: 0;
 }
 
-/* TYPOGRAPHY */
 h1 {
     font-weight: 700;
     letter-spacing: -0.5px;
@@ -32,7 +31,6 @@ h3 {
     margin-top: 24px;
 }
 
-/* LAYOUT */
 .container {
     width: 100%;
     max-width: 1100px;
@@ -40,8 +38,6 @@ h3 {
     padding: 0;
     text-align: center;
 }
-
-/* HEADER */
 
 #header {
     flex: 1;
@@ -90,8 +86,6 @@ h3 {
     transform: rotate(-75deg);
 }
 
-
-/* NAV */
 .nav-links {
     position: absolute;
     top: 100%;
@@ -146,7 +140,6 @@ h3 {
     align-items: center;
     transform: translateX(200%);
     transition: transform 0.3s cubic-bezier(0.76, 0, 0.24, 1);
-    /* text-shadow: 0 0 6px rgba(255,255,255,0.6); */
 }
 
 .nav-links a span {
@@ -194,7 +187,6 @@ h3 {
     color: #ffd166;
 }
 
-/* INPUT */
 .input-section {
     display: flex;
     gap: 10px;
@@ -232,7 +224,6 @@ h3 {
     transform: translateY(-1px);
 }
 
-/* BUTTON BASE */
 button {
     padding: 10px;
     background: var(--primary-green);
@@ -256,7 +247,7 @@ button.disabled {
     transform: none;
 }
 
-/* Clear All Tag */
+
 .clear-tag {
     background: #f5b5b5;
     color: #7a1f1f;
@@ -271,7 +262,6 @@ button.disabled {
     transition: 0.5s;
 }
 
-/* INGREDIENT TAGS */
 #ingredientList {
     display: flex;
     flex-wrap: wrap;
@@ -300,7 +290,6 @@ button.disabled {
     opacity: 1;
 }
 
-/* QUICK ADD */
 #quickList {
     display: flex;
     flex-wrap: wrap;
@@ -352,8 +341,6 @@ button.disabled {
     opacity: 1;
 }
 
-
-/* SEARCH BUTTON */
 #searchBtn {
     margin-top: 15px;
     margin-bottom: 10px;
@@ -474,7 +461,6 @@ button.disabled {
     cursor: pointer;
 }
 
-/* RECIPE GRID */
 #recipeResults {
     margin-top: 30px;
     display: grid;
@@ -482,7 +468,6 @@ button.disabled {
     justify-content: center;
 }
 
-/* CARD */
 .recipe-card {
     background: white;
     border-radius: 12px;
@@ -524,7 +509,6 @@ button.disabled {
     color: #999;
 }
 
-/* BUTTONS */
 .view-btn,
 .remove-btn {
     margin-top: auto;
@@ -535,7 +519,6 @@ button.disabled {
     font-weight: 600;
 }
 
-/* DETAILS */
 .details-container {
     max-width: 850px;
     margin: auto;
@@ -576,7 +559,6 @@ button.disabled {
         0 6px 14px rgba(0, 0, 0, 0.1);
 }
 
-/* INGREDIENTS */
 #detailIngredients {
     list-style: none;
     padding: 0;
@@ -593,7 +575,6 @@ button.disabled {
     border-left: 4px solid var(--primary-green);
 }
 
-/* INSTRUCTIONS */
 #detailInstructions {
     text-align: left;
     font-size: 15px;
@@ -709,14 +690,12 @@ button.disabled {
     color: #555;
 }
 
-/* FAVORITES */
 #favoritesList {
     display: grid;
     gap: 16px;
     margin-top: 20px;
 }
 
-/* PANTRY SIDEBAR */
 #pantrySidebar {
     position: fixed;
     top: 110px;
